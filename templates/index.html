@@ -4,20 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Upload and Download</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>PDF Upload and Download</h1>
-    
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="pdf_file" accept=".pdf" required>
-        <button type="submit">Upload PDF</button>
-    </form>
+    <div class="container">
+        <h1>PDF Upload and Download</h1>
+        
+        <div class="upload-section">
+            <form action="{{ url_for('upload_pdf') }}" method="POST" enctype="multipart/form-data">
+                <div class="file-input-wrapper">
+                    <input type="file" name="pdf_file" id="pdf_file" accept=".pdf" required>
+                    <label for="pdf_file" class="btn">📂 Choose a PDF file</label>
+                </div>
+                <button type="submit" class="btn btn-primary">📤 Upload PDF</button>
+            </form>
+        </div>
 
-    {% if pdf_file %}
-    <h2>Download Uploaded PDF</h2>
-    <a href="{{ url_for('download_pdf', filename=pdf_file) }}" download>
-        <button>Download PDF</button>
-    </a>
-    {% endif %}
+        {% if pdf_file %}
+        <div class="download-section">
+            <h2>Download Uploaded PDF</h2>
+            <a href="{{ url_for('download_pdf', filename=pdf_file) }}" download class="btn btn-secondary">
+                💾 Download PDF
+            </a>
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <div class="message {{ message_class }}">
+            {{ message }}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>

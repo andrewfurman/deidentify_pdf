@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file, url_for, redirect
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # Ensure the upload folder exists
